@@ -4,8 +4,7 @@ import {
   Button,
   Checkbox,
   CircularProgress,
-  ImageList,
-  ImageListItem,
+  Grid,
   List,
   ListItem,
   Modal,
@@ -29,7 +28,9 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "100vw",
+  overflow: "scroll",
+  width: "90%",
+  height: "90%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -168,12 +169,12 @@ function App() {
       {searching ? (
         <CircularProgress />
       ) : (
-        <Box>
+        <Box sx={{ flexGrow: 1 }}>
           {searchResults.length > 0 && (
-            <ImageList cols={6}>
+            <Grid container spacing={3}>
               {searchResults.map((c) => {
                 return (
-                  <ImageListItem style={{ width: "200px" }}>
+                  <Grid item flexDirection={"column"} display={"flex"}>
                     <Checkbox
                       onClick={() => checkCard(c)}
                       checked={cardIsChecked(c.id)}
@@ -181,26 +182,40 @@ function App() {
                     <img
                       src={`${c.image}/high.png`}
                       onClick={() => checkCard(c)}
+                      style={{ width: "200px" }}
                     />
-                  </ImageListItem>
+                  </Grid>
                 );
               })}
-            </ImageList>
+            </Grid>
           )}
         </Box>
       )}
       <Modal open={showMyCards} onClose={() => setShowMyCards(false)}>
         <Box sx={modalStyle}>
-          <ImageList cols={6}>
-            {myCards.map((c) => {
-              return (
-                <ImageListItem style={{ width: "200px" }}>
-                  <img src={`${c.image}/high.png`} />
-                  <Button onClick={() => checkCard(c)}>Remove</Button>
-                </ImageListItem>
-              );
-            })}
-          </ImageList>
+          {myCards.length > 0 && (
+            <Grid
+              container
+              columns={8}
+              style={{ paddingLeft: "50px", marginTop: "100px" }}
+            >
+              {myCards.map((c) => {
+                return (
+                  <Grid
+                    item
+                    style={{ marginLeft: `-25px`, marginTop: "-100px" }}
+                    xs={1}
+                  >
+                    <img
+                      src={`${c.image}/high.png`}
+                      onClick={() => checkCard(c)}
+                      style={{ width: "200px" }}
+                    />
+                  </Grid>
+                );
+              })}
+            </Grid>
+          )}
         </Box>
       </Modal>
     </Box>
