@@ -174,7 +174,6 @@ function App() {
                 return (
                   <ImageListItem style={{ width: "200px" }}>
                     <Checkbox
-                      label="Select"
                       onClick={() => checkCard(c)}
                       checked={cardIsChecked(c.id)}
                     />
