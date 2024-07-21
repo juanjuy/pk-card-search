@@ -70,7 +70,6 @@ function App() {
     setSetSearchTerm("");
     setCardSearchTerm("");
     setSearchResults([]);
-    setSetList([]);
   };
 
   const pickSet = (set: SetResume) => {
@@ -130,17 +129,19 @@ function App() {
       />
 
       {selectedSet && (
-        <TextField
-          onKeyDown={(e) => handleKeyDown(e.key)}
-          value={cardSearchTerm}
-          onChange={(val) => setCardSearchTerm(val.target.value)}
-          style={{ border: "1px solid white", color: "white" }}
-          label={"Card Name"}
-          color={"primary"}
-        />
+        <>
+          <TextField
+            onKeyDown={(e) => handleKeyDown(e.key)}
+            value={cardSearchTerm}
+            onChange={(val) => setCardSearchTerm(val.target.value)}
+            style={{ border: "1px solid white", color: "white" }}
+            label={"Card Name"}
+            color={"primary"}
+          />
+          <Button onClick={() => searchForCard()}>Search</Button>
+        </>
       )}
 
-      <Button onClick={() => searchForCard()}>Search</Button>
       <Button onClick={reset}>Reset</Button>
       {myCards.length > 0 && (
         <Button onClick={() => setShowMyCards(true)}>
